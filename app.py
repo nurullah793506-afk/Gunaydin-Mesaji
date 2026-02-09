@@ -7,7 +7,7 @@ import pytz
 # AYARLAR
 # =======================
 TR_TZ = pytz.timezone("Europe/Istanbul")
-ACILIS_SAATI = time(01, 04)
+ACILIS_SAATI = time(1, 4)
 
 st.set_page_config(page_title="Günün Sürprizi 💖", page_icon="🌸")
 
