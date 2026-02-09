@@ -8,8 +8,8 @@ import os
 # =====================
 # AYARLAR
 # =====================
-START_HOUR = 8
-START_MINUTE = 30
+START_HOUR = 00
+START_MINUTE = 40
 QUESTIONS_PER_DAY = 3
 TIMEZONE = "Europe/Istanbul"
 
