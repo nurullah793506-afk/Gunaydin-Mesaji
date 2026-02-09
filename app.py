@@ -4,7 +4,8 @@ import random
 # Uygulama Teması ve Başlığı
 st.set_page_config(page_title="Günün Sürprizi", page_icon="❤️ 🩺")
 
-st.markdown("<h1 style='text-align: center; color: #e91e63;'>🌸 Günaydın Güzelim 🌸</h1>", unsafe_allow_status_code=True)
+st.title("🌸 Günaydın Güzelim 🌸")
+
 
 # Soru Havuzu (Tıp + Romantizm + Kişisel)
 if 'soru_no' not in st.session_state:
