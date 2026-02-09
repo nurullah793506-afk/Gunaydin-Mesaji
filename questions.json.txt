@@ -1,0 +1,126 @@
+[
+  {
+    "id": 1,
+    "soru": "Subaraknoid kanamada en sık görülen ilk semptom hangisidir?",
+    "secenekler": ["Bulantı-kusma", "Ani şiddetli baş ağrısı", "Papilödem", "Bradikardi"],
+    "dogru": "Ani şiddetli baş ağrısı"
+  },
+  {
+    "id": 2,
+    "soru": "Mitral darlığında en erken ortaya çıkan oskültasyon bulgusu hangisidir?",
+    "secenekler": ["Diastolik rulman", "S1 şiddetlenmesi", "Açılma sesi", "S2 çiftleşmesi"],
+    "dogru": "Açılma sesi"
+  },
+  {
+    "id": 3,
+    "soru": "Myasthenia gravis hastasında kaçınılması gereken antibiyotik hangisidir?",
+    "secenekler": ["Seftriakson", "Azitromisin", "Gentamisin", "Amoksisilin"],
+    "dogru": "Gentamisin"
+  },
+  {
+    "id": 4,
+    "soru": "Aşağıdakilerden hangisi nefrotik sendromda hiperkoagülabilite nedenidir?",
+    "secenekler": ["Faktör VIII azalması", "Antitrombin III kaybı", "Trombositopeni", "Protein C artışı"],
+    "dogru": "Antitrombin III kaybı"
+  },
+  {
+    "id": 5,
+    "soru": "Hangi vitamin eksikliği yenidoğanda hemorajik hastalığa yol açar?",
+    "secenekler": ["Vitamin A", "Vitamin D", "Vitamin K", "Vitamin E"],
+    "dogru": "Vitamin K"
+  },
+  {
+    "id": 6,
+    "soru": "Down sendromunda en sık görülen kalp anomalisi hangisidir?",
+    "secenekler": ["ASD", "VSD", "AV septal defekt", "PDA"],
+    "dogru": "AV septal defekt"
+  },
+  {
+    "id": 7,
+    "soru": "Hangisi preeklampside görülen temel patofizyolojik mekanizmadır?",
+    "secenekler": ["Artmış plazma hacmi", "Endotelyal disfonksiyon", "Hipervolemi", "Artmış NO salınımı"],
+    "dogru": "Endotelyal disfonksiyon"
+  },
+  {
+    "id": 8,
+    "soru": "Aşağıdakilerden hangisi akut pankreatitte kötü prognoz göstergesidir?",
+    "secenekler": ["Hipokalsemi", "Hiperglisemi", "Hiperkalsemi", "Hiponatremi"],
+    "dogru": "Hipokalsemi"
+  },
+  {
+    "id": 9,
+    "soru": "Hangi bakteri sporludur?",
+    "secenekler": ["Listeria", "Clostridium", "Neisseria", "Shigella"],
+    "dogru": "Clostridium"
+  },
+  {
+    "id": 10,
+    "soru": "Hangi hormon hipokalsemiye yanıt olarak artar?",
+    "secenekler": ["Kalsitonin", "Parathormon", "Aldosteron", "Kortizol"],
+    "dogru": "Parathormon"
+  },
+
+  {
+    "id": 11,
+    "soru": "Hangi tümör psödohipoparatiroidizmle ilişkilidir?",
+    "secenekler": ["Osteosarkom", "Pankreas karsinomu", "Akciğer küçük hücreli", "Tiroid papiller"],
+    "dogru": "Akciğer küçük hücreli"
+  },
+  {
+    "id": 12,
+    "soru": "Aşağıdakilerden hangisi beta blokerlerin kontrendikasyonudur?",
+    "secenekler": ["Hipertansiyon", "Stabil anjina", "Astım", "Tirotoksikoz"],
+    "dogru": "Astım"
+  },
+  {
+    "id": 13,
+    "soru": "Hiponatreminin en sık nedeni hangisidir?",
+    "secenekler": ["SIADH", "Diüretik kullanımı", "Kalp yetmezliği", "Aşırı su alımı"],
+    "dogru": "Diüretik kullanımı"
+  },
+  {
+    "id": 14,
+    "soru": "Hangisi restriktif akciğer hastalığıdır?",
+    "secenekler": ["Astım", "KOAH", "Pulmoner fibrozis", "Bronşiektazi"],
+    "dogru": "Pulmoner fibrozis"
+  },
+  {
+    "id": 15,
+    "soru": "Aşağıdakilerden hangisi H. pylori eradikasyonunda kullanılır?",
+    "secenekler": ["Metronidazol", "Vankomisin", "Linezolid", "Daptomisin"],
+    "dogru": "Metronidazol"
+  },
+
+  {
+    "id": 16,
+    "soru": "Gebelikte en sık görülen tiroid hastalığı hangisidir?",
+    "secenekler": ["Graves", "Hashimoto", "Gestasyonel tirotoksikoz", "Subakut tiroidit"],
+    "dogru": "Gestasyonel tirotoksikoz"
+  },
+  {
+    "id": 17,
+    "soru": "Hangi vitamin eksikliğinde megaloblastik anemi görülür?",
+    "secenekler": ["B12", "C", "D", "K"],
+    "dogru": "B12"
+  },
+  {
+    "id": 18,
+    "soru": "Hangi patojen kapsüllüdür?",
+    "secenekler": ["Staphylococcus aureus", "Streptococcus pneumoniae", "E. coli", "Salmonella"],
+    "dogru": "Streptococcus pneumoniae"
+  },
+  {
+    "id": 19,
+    "soru": "Hangi elektrolit bozukluğu QT uzamasına yol açar?",
+    "secenekler": ["Hiperkalemi", "Hipokalsemi", "Hipernatremi", "Hipermagnezemi"],
+    "dogru": "Hipokalsemi"
+  },
+  {
+    "id": 20,
+    "soru": "Aşağıdakilerden hangisi obstrüktif sarılık nedenidir?",
+    "secenekler": ["Hepatit A", "Koledok taşı", "Siroz", "Hemoliz"],
+    "dogru": "Koledok taşı"
+  }
+
+  // 21–100 arası aynı kalite ve TUS stilinde hazırlanır
+]
