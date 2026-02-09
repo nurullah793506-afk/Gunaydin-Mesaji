@@ -46,7 +46,7 @@ unlock_time = now.replace(hour=8, minute=30, second=0, microsecond=0)
 if now < unlock_time:
     st.markdown("""
     <div class='card'>
-        ⏰ Günün sürprizi saat <b>08:30</b>'da açılacak 💖
+        ⏰ Günün sürprizi saat <b>05:21</b>'da açılacak 💖
     </div>
     """, unsafe_allow_html=True)
     st.stop()
