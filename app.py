@@ -15,7 +15,7 @@ if 'soru_no' not in st.session_state:
             "odul": "Tıpkı bu EKG gibi, kalbim seninle her an ritim tutuyor! Bugünün çok huzurlu geçsin doktor hanım. ❤️"
         },
         {
-            "soru": "Geveze ve Nazlıcan'ın en sevdiği meyve/sebze nedir? (Hadi bakalım kuşlarını ne kadar tanıyorsun?)",
+            "soru": "Dişi Zikzik ve Erkek Zİkiğin en sevdiği meyve/sebze nedir? (Hadi bakalım kuşlarını ne kadar tanıyorsun?)",
             "cevap": "Maydanoz", # Burayı onun bildiği bir cevapla değiştirebilirsin
             "odul": "Kuşlarımızın cıvıltısı kadar neşeli bir gün dilerim! Seni görmeyi sabırsızlıkla bekliyorlar. 🐦"
         },
@@ -29,7 +29,8 @@ if 'soru_no' not in st.session_state:
             "vaka": "Yenidoğanlarda K vitamini eksikliğine bağlı kanamayı önlemek için hangi kas içine enjeksiyon yapılır?",
             "secenekler": ["M. Deltoideus", "M. Gluteus Maximus", "M. Vastus Lateralis"],
             "dogru": "M. Vastus Lateralis",
-            "mesaj": "Bilgin taze, zihnin benle dolsun.”
+            "mesaj": "Bilgin taze, zihnin benle dolsun ✨"
+
 },
     ]
     st.session_state.soru_no = random.randint(0, len(questions) - 1)
