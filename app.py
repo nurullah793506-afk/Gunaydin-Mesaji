@@ -1,120 +1,102 @@
 import streamlit as st
+import json
 import random
+import os
 from datetime import datetime, time
 import pytz
 
-# =======================
-# AYARLAR
-# =======================
-TR_TZ = pytz.timezone("Europe/Istanbul")
-ACILIS_SAATI = time(1, 4)
+# ================== AYARLAR ==================
+TIMEZONE = pytz.timezone("Europe/Istanbul")
+ACILIS_SAATI = time(8, 30)
+GUNLUK_SORU_SAYISI = 3
 
-st.set_page_config(page_title="Günün Sürprizi 💖", page_icon="🌸")
+QUESTIONS_FILE = "questions.json"
+ASKED_FILE = "asked_questions.json"
+MESSAGES_FILE = "messages.json"
+USED_MESSAGES_FILE = "used_messages.json"
+# =============================================
 
-# =======================
-# SAAT KONTROLÜ
-# =======================
-simdi = datetime.now(TR_TZ).time()
-
+st.set_page_config(page_title="Günün Sürprizi", page_icon="🌸")
 st.title("🌸 Günaydın Güzelim 🌸")
 
-if simdi < ACILIS_SAATI:
-    st.info(f"⏰ Günün sürprizi saat **08:30**'da açılacak 💖")
+# ================== ZAMAN KONTROL ==================
+now = datetime.now(TIMEZONE).time()
+if now < ACILIS_SAATI:
+    st.info(f"⏰ Günün sürprizi saat {ACILIS_SAATI.strftime('%H:%M')}'de açılacak 💖")
     st.stop()
+# ===================================================
 
-# =======================
-# SORULAR (20 TANE – TUS TRICKY)
-# =======================
-QUESTIONS = [
-    {
-        "soru": "Atrial flutter’da EKG’de en tipik bulgu hangisidir?",
-        "secenekler": ["Düzensiz RR", "Testere dişi P dalgaları", "Geniş QRS"],
-        "dogru": "Testere dişi P dalgaları"
-    },
-    {
-        "soru": "Subaraknoid kanamanın en sık nedeni nedir?",
-        "secenekler": ["AVM", "Sakküler anevrizma", "Travma"],
-        "dogru": "Sakküler anevrizma"
-    },
-    {
-        "soru": "Hangi vitamin eksikliği megaloblastik anemi yapar?",
-        "secenekler": ["B6", "B12", "C"],
-        "dogru": "B12"
-    },
-    {
-        "soru": "Hiperkalsemide ilk tedavi basamağı nedir?",
-        "secenekler": ["Furosemid", "İV sıvı", "Kalsitonin"],
-        "dogru": "İV sıvı"
-    },
-    {
-        "soru": "Akut pankreatitin en sık nedeni nedir?",
-        "secenekler": ["Alkol", "Safra taşı", "Hiperkalsemi"],
-        "dogru": "Safra taşı"
-    },
-    # 🔹 15 tane daha eklenebilir (şimdilik stabil)
-]
+# ================== JSON YARDIMCILAR ==================
+def load_json(path, default):
+    if not os.path.exists(path):
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(default, f, ensure_ascii=False, indent=2)
+        return default
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-# =======================
-# ROMANTİK MESAJLAR (20)
-# =======================
-MESSAGES = [
-    "Kalbin bugün de doğru cevabı buldu 💖",
-    "Zekân kalbime çok yakışıyor 🌸",
-    "Bugün de seni sevme nedenlerime bir tane eklendi 🫶",
-    "Bu cevap kadar net duygularım sana 💗",
-    "Bilgin parlıyor, tıpkı gülüşün gibi ✨",
-    "Birlikte her sorunun cevabıyız 💞",
-    "Beynin çalışıyor, kalbim hızlanıyor 😌",
-    "TUS seni beklesin, ben buradayım ❤️",
-    "Zihnin kadar ruhun da güzel 🌷",
-    "Bugün de sana hayran kaldım 💓",
-]
+def save_json(path, data):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+# =====================================================
 
-# =======================
-# SESSION STATE
-# =======================
-if "gunluk_sorular" not in st.session_state:
-    st.session_state.gunluk_sorular = random.sample(QUESTIONS, 3)
-    st.session_state.index = 0
-    st.session_state.kullanilan_mesajlar = []
+questions = load_json(QUESTIONS_FILE, [])
+asked_questions = load_json(ASKED_FILE, [])
+messages = load_json(MESSAGES_FILE, [])
+used_messages = load_json(USED_MESSAGES_FILE, [])
 
-# =======================
-# TÜM SORULAR BİTTİYSE
-# =======================
-if st.session_state.index >= 3:
+# ================== BUGÜNÜN SORULARI ==================
+today = datetime.now(TIMEZONE).strftime("%Y-%m-%d")
+
+if "today" not in st.session_state or st.session_state.today != today:
+    st.session_state.today = today
+    st.session_state.correct_count = 0
+
+    remaining = [q for q in questions if q["id"] not in asked_questions]
+    if len(remaining) < GUNLUK_SORU_SAYISI:
+        st.success("🎉 Bugünün tüm sorularını tamamladın!")
+        st.stop()
+
+    st.session_state.today_questions = random.sample(remaining, GUNLUK_SORU_SAYISI)
+    st.session_state.q_index = 0
+# =====================================================
+
+# ================== SORU GÖSTER ==================
+q_index = st.session_state.q_index
+today_questions = st.session_state.today_questions
+
+if q_index >= len(today_questions):
     st.success("🎉 Bugünün tüm sorularını tamamladın!")
-    st.balloons()
     st.stop()
 
-# =======================
-# AKTİF SORU
-# =======================
-soru = st.session_state.gunluk_sorular[st.session_state.index]
+q = today_questions[q_index]
 
-st.subheader(f"📝 Soru {st.session_state.index + 1}/3")
-st.write(soru["soru"])
+st.subheader(f"📝 Soru {q_index + 1}")
+st.write(q["question"])
 
-cevap = st.radio(
+choice = st.radio(
     "Cevabını seç:",
-    soru["secenekler"],
-    key=f"cevap_{st.session_state.index}"
+    q["options"],
+    key=f"choice_{q_index}"
 )
 
-# =======================
-# BUTON
-# =======================
-if st.button("Cevabı Gönder 🎁"):
-    if cevap == soru["dogru"]:
+if st.button("Cevabı Onayla ✅"):
+    if choice == q["answer"]:
         st.success("✅ Doğru!")
 
-        # Romantik mesaj (tekrar etmez)
-        kalan = [m for m in MESSAGES if m not in st.session_state.kullanilan_mesajlar]
-        if kalan:
-            mesaj = random.choice(kalan)
-            st.session_state.kullanilan_mesajlar.append(mesaj)
-            st.info(f"💌 {mesaj}")
+        asked_questions.append(q["id"])
+        save_json(ASKED_FILE, asked_questions)
 
-        st.session_state.index += 1
-        st.rerun()
+        available_messages = [m for m in messages if m not in used_messages]
+        if available_messages:
+            msg = random.choice(available_messages)
+            used_messages.append(msg)
+            save_json(USED_MESSAGES_FILE, used_messages)
+            st.success("💖 " + msg)
+
+        st.balloons()
+        st.session_state.q_index += 1
+        st.experimental_rerun()
     else:
-        st.warning("❌ Olmadı… bir daha dene 💭")
+        st.warning("❌ hadi bir daha deneyelim aşkım 💭")
+# =====================================================
