@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 
-# Sayfa ayarları
 st.set_page_config(
     page_title="Günün Sürprizi",
     page_icon="❤️"
@@ -9,7 +8,6 @@ st.set_page_config(
 
 st.title("🌸 Günaydın Güzelim 🌸")
 
-# Soru havuzu
 questions = [
     {
         "soru": "Acil serviste 'akut koroner sendrom' şüphesiyle gelen hastada çekilmesi gereken ilk tetkik nedir?",
@@ -21,7 +19,7 @@ questions = [
         "soru": "Diş Zikzik ve Erkek Zikziğin en sevdiği meyve/sebze nedir?",
         "secenekler": ["Elma", "Havuç", "Maydanoz"],
         "dogru": "Maydanoz",
-        "mesaj": "Kuşlarımızın cıvıltısı kadar neşeli bir günün olsun 🐦"
+        "mesaj": "Kuşlarımızın cıvıltısı kadar neşeli bir gün olsun 🐦"
     },
     {
         "soru": "EKG'de 'testere dişi' görünümü hangi ritim bozukluğuna işaret eder?",
@@ -33,11 +31,11 @@ questions = [
         "soru": "Yenidoğanlarda K vitamini eksikliğine bağlı kanamayı önlemek için hangi kas içine enjeksiyon yapılır?",
         "secenekler": ["M. Deltoideus", "M. Gluteus Maximus", "M. Vastus Lateralis"],
         "dogru": "M. Vastus Lateralis",
-        "mesaj": "Bilgin taze, zihnin benimle dolsun ✨"
+        "mesaj": "Bilgin taze, zihnin benle dolsun ✨"
     }
 ]
 
-# Session state
+# Günün sorusu
 if "soru_no" not in st.session_state:
     st.session_state.soru_no = random.randint(0, len(questions) - 1)
 
@@ -46,16 +44,16 @@ soru = questions[st.session_state.soru_no]
 st.subheader("📝 Günün Sorusu")
 st.info(soru["soru"])
 
-# Cevap girişi
-cevap = st.text_input("Cevabını yaz:").strip().lower()
+# ✅ ÇOKTAN SEÇMELİ
+cevap = st.radio(
+    "Cevabını seç:",
+    soru["secenekler"]
+)
 
-# Buton
 if st.button("Sürprizi Aç 🎁"):
-    if soru["dogru"].lower() in cevap:
+    if cevap == soru["dogru"]:
         st.balloons()
         st.success(soru["mesaj"])
-        st.image(
-            "https://media.giphy.com/media/l41lTfuxV3VfW2WME/giphy.gif"
-        )
+        st.image("https://media.giphy.com/media/l41lTfuxV3VfW2WME/giphy.gif")
     else:
-        st.warning("Hımm, biraz daha düşünmen gerekebilir mi? 💭")
+        st.warning("Hımm, biraz daha düşünmek ister misin? 💭")
