@@ -1,118 +1,97 @@
 import streamlit as st
 import json
-import os
-from datetime import datetime, time
+import random
+from datetime import datetime, time, timedelta, timezone
+from pathlib import Path
 
-# =========================
-# AYARLAR
-# =========================
-ACILIS_SAATI = time(1, 19)
-KAPANIS_SAATI = time(11, 0)
+# ------------------ SABİT AYARLAR ------------------
+ACILIS_SAATI = time(1, 23)    # 01:00
+KAPANIS_SAATI = time(12, 0)  # 12:00
+GUNLUK_SORU_LIMITI = 3
 
 QUESTIONS_FILE = "questions.json"
 MESSAGES_FILE = "messages.json"
-USED_QUESTIONS_FILE = "used_questions.json"
-USED_MESSAGES_FILE = "used_messages.json"
+ASKED_FILE = "asked_questions.json"
+USED_MSG_FILE = "used_messages.json"
 
-
-# =========================
-# YARDIMCI FONKSİYONLAR
-# =========================
+# ------------------ YARDIMCI FONKSİYONLAR ------------------
 def load_json(path, default):
-    if not os.path.exists(path):
+    if not Path(path).exists():
         with open(path, "w", encoding="utf-8") as f:
             json.dump(default, f, ensure_ascii=False, indent=2)
-        return default
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
-
 
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def turkiye_saati():
+    tr_tz = timezone(timedelta(hours=3))
+    return datetime.now(tr_tz)
 
 def saat_uygun_mu():
-    simdi = datetime.now().time()
+    simdi = turkiye_saati().time()
     return ACILIS_SAATI <= simdi <= KAPANIS_SAATI
 
-
-# =========================
-# VERİLERİ YÜKLE
-# =========================
+# ------------------ VERİLER ------------------
 questions = load_json(QUESTIONS_FILE, [])
 messages = load_json(MESSAGES_FILE, [])
+asked_questions = load_json(ASKED_FILE, [])
+used_messages = load_json(USED_MSG_FILE, [])
 
-used_questions = load_json(USED_QUESTIONS_FILE, [])
-used_messages = load_json(USED_MESSAGES_FILE, [])
-
-
-# =========================
-# STREAMLIT UI
-# =========================
-st.set_page_config(page_title="Günaydın ☀️", page_icon="☀️")
-st.title("☀️ Günaydın Oyunu")
-
+# ------------------ SAAT KONTROL ------------------
 if not saat_uygun_mu():
     st.warning("⏰ Bu uygulama sadece sabah saatlerinde aktif.")
     st.stop()
 
+# ------------------ GÜNLÜK OTURUM ------------------
+today = turkiye_saati().date().isoformat()
 
-# =========================
-# KALAN SORULAR
-# =========================
-kalan_sorular = [q for q in questions if q["id"] not in used_questions]
+if "today" not in st.session_state:
+    st.session_state.today = today
+    st.session_state.asked_today = 0
+    st.session_state.current_question = None
 
-if not kalan_sorular:
+if st.session_state.today != today:
+    st.session_state.today = today
+    st.session_state.asked_today = 0
+    st.session_state.current_question = None
+
+if st.session_state.asked_today >= GUNLUK_SORU_LIMITI:
     st.success("🎉 Bugünün tüm sorularını tamamladın!")
     st.stop()
 
+# ------------------ SORU SEÇ ------------------
+if st.session_state.current_question is None:
+    kalan_sorular = [q for q in questions if q["id"] not in asked_questions]
+    if not kalan_sorular:
+        st.success("🎉 Tüm sorular bitti!")
+        st.stop()
+    st.session_state.current_question = random.choice(kalan_sorular)
 
-# =========================
-# SESSION STATE
-# =========================
-if "question_id" not in st.session_state:
-    st.session_state.question_id = kalan_sorular[0]["id"]
+q = st.session_state.current_question
 
-q = next(q for q in questions if q["id"] == st.session_state.question_id)
+# ------------------ UI ------------------
+st.title("💖 Günaydın Aşkım")
+st.subheader(q["question"])
 
-st.subheader("💬 Soru")
-st.write(q["question"])
+cevap = st.radio("Seç:", q["options"], key="answer")
 
-answer = st.text_input("Cevabın", key="answer_input")
+if st.button("Cevapla"):
+    if cevap == q["answer"]:
+        asked_questions.append(q["id"])
+        save_json(ASKED_FILE, asked_questions)
 
-
-# =========================
-# CEVAP KONTROL
-# =========================
-if st.button("Cevabı Gönder"):
-    if answer.strip().lower() == q["answer"].strip().lower():
-
-        # soru kullanıldı
-        used_questions.append(q["id"])
-        save_json(USED_QUESTIONS_FILE, used_questions)
-
-        # mesaj seç
-        kalan_mesajlar = [m for m in messages if m["id"] not in used_messages]
-
-        st.success("✅ Doğru cevap!")
-
+        kalan_mesajlar = [m for m in messages if m not in used_messages]
         if kalan_mesajlar:
-            mesaj = kalan_mesajlar[0]
-            used_messages.append(mesaj["id"])
-            save_json(USED_MESSAGES_FILE, used_messages)
+            mesaj = random.choice(kalan_mesajlar)
+            used_messages.append(mesaj)
+            save_json(USED_MSG_FILE, used_messages)
+            st.success(mesaj)
 
-            st.markdown(f"💖 **{mesaj['text']}**")
-        else:
-            st.info("💌 Tüm romantik mesajlar kullanıldı.")
-
-        # yeni soru hazırla
-        yeni_kalanlar = [q for q in questions if q["id"] not in used_questions]
-        if yeni_kalanlar:
-            st.session_state.question_id = yeni_kalanlar[0]["id"]
-            st.session_state.answer_input = ""
-        else:
-            del st.session_state.question_id
-
+        st.session_state.asked_today += 1
+        st.session_state.current_question = None
+        st.rerun()
     else:
-        st.error("❌ Yanlış cevap, bir daha dene.")
+        st.error("❌ Yanlış ama vazgeçmek yok, tekrar dene 💪")
