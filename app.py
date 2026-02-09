@@ -40,13 +40,13 @@ st.markdown("""
 st.markdown("<div class='title'>🌸 Günaydın Güzelim 🌸</div>", unsafe_allow_html=True)
 
 # ================== SAAT ==================
-now = datetime.datetime.now()
+now = datetime.datetime.now(ZoneInfo("Europe/Istanbul"))
 unlock_time = now.replace(hour=8, minute=30, second=0, microsecond=0)
 
 if now < unlock_time:
     st.markdown("""
     <div class='card'>
-        ⏰ Günün sürprizi saat <b>05:21</b>'da açılacak 💖
+        ⏰ Günün sürprizi saat <b>05:25</b>'da açılacak 💖
     </div>
     """, unsafe_allow_html=True)
     st.stop()
