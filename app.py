@@ -7,7 +7,7 @@ import pytz
 
 # ================== AYARLAR ==================
 TIMEZONE = pytz.timezone("Europe/Istanbul")
-ACILIS_SAATI = time(8, 30)
+ACILIS_SAATI = time(1, 12)
 GUNLUK_SORU_SAYISI = 3
 
 QUESTIONS_FILE = "questions.json"
