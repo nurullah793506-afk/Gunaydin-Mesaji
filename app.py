@@ -1,121 +1,120 @@
 import streamlit as st
-import json
 import random
-from datetime import datetime
+from datetime import datetime, time
 import pytz
-import os
 
-# =====================
+# =======================
 # AYARLAR
-# =====================
-START_HOUR = 00
-START_MINUTE = 46
-QUESTIONS_PER_DAY = 3
-TIMEZONE = "Europe/Istanbul"
+# =======================
+TR_TZ = pytz.timezone("Europe/Istanbul")
+ACILIS_SAATI = time(01, 04)
 
-QUESTIONS_FILE = "questions.json"
-MESSAGES_FILE = "messages.json"
-STATE_FILE = "state.json"
+st.set_page_config(page_title="Günün Sürprizi 💖", page_icon="🌸")
 
-# =====================
-# YARDIMCI FONKSİYONLAR
-# =====================
-def load_json(path, default):
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return default
-
-def save_json(path, data):
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-# =====================
-# ZAMAN KONTROLÜ
-# =====================
-tz = pytz.timezone(TIMEZONE)
-now = datetime.now(tz)
-
-start_time = now.replace(
-    hour=START_HOUR,
-    minute=START_MINUTE,
-    second=0,
-    microsecond=0
-)
-
-if now < start_time:
-    st.title("🌸 Günaydın Güzelim 🌸")
-    st.info(f"⏰ Günün sürprizi saat {START_HOUR:02d}:{START_MINUTE:02d}'da açılacak 💖")
-    st.stop()
-
-# =====================
-# VERİLERİ YÜKLE
-# =====================
-questions = load_json(QUESTIONS_FILE, [])
-messages = load_json(MESSAGES_FILE, [])
-
-state = load_json(STATE_FILE, {
-    "asked_questions": [],
-    "used_messages": [],
-    "today": now.date().isoformat(),
-    "today_questions": [],
-    "current_index": 0
-})
-
-# =====================
-# GÜN DEĞİŞTİYSE RESET
-# =====================
-if state["today"] != now.date().isoformat():
-    available = [q for q in questions if q["id"] not in state["asked_questions"]]
-    daily = random.sample(available, min(QUESTIONS_PER_DAY, len(available)))
-
-    state["today"] = now.date().isoformat()
-    state["today_questions"] = [q["id"] for q in daily]
-    state["current_index"] = 0
-    save_json(STATE_FILE, state)
-
-# =====================
-# SORU BİTTİ Mİ?
-# =====================
-if state["current_index"] >= len(state["today_questions"]):
-    st.success("🎉 Bugünün tüm sorularını tamamladın!")
-    st.stop()
-
-# =====================
-# AKTİF SORU
-# =====================
-q_id = state["today_questions"][state["current_index"]]
-question = next(q for q in questions if q["id"] == q_id)
+# =======================
+# SAAT KONTROLÜ
+# =======================
+simdi = datetime.now(TR_TZ).time()
 
 st.title("🌸 Günaydın Güzelim 🌸")
-st.subheader(f"🧠 Soru {state['current_index'] + 1} / {len(state['today_questions'])}")
-st.write(question["soru"])
 
-choice = st.radio(
+if simdi < ACILIS_SAATI:
+    st.info(f"⏰ Günün sürprizi saat **08:30**'da açılacak 💖")
+    st.stop()
+
+# =======================
+# SORULAR (20 TANE – TUS TRICKY)
+# =======================
+QUESTIONS = [
+    {
+        "soru": "Atrial flutter’da EKG’de en tipik bulgu hangisidir?",
+        "secenekler": ["Düzensiz RR", "Testere dişi P dalgaları", "Geniş QRS"],
+        "dogru": "Testere dişi P dalgaları"
+    },
+    {
+        "soru": "Subaraknoid kanamanın en sık nedeni nedir?",
+        "secenekler": ["AVM", "Sakküler anevrizma", "Travma"],
+        "dogru": "Sakküler anevrizma"
+    },
+    {
+        "soru": "Hangi vitamin eksikliği megaloblastik anemi yapar?",
+        "secenekler": ["B6", "B12", "C"],
+        "dogru": "B12"
+    },
+    {
+        "soru": "Hiperkalsemide ilk tedavi basamağı nedir?",
+        "secenekler": ["Furosemid", "İV sıvı", "Kalsitonin"],
+        "dogru": "İV sıvı"
+    },
+    {
+        "soru": "Akut pankreatitin en sık nedeni nedir?",
+        "secenekler": ["Alkol", "Safra taşı", "Hiperkalsemi"],
+        "dogru": "Safra taşı"
+    },
+    # 🔹 15 tane daha eklenebilir (şimdilik stabil)
+]
+
+# =======================
+# ROMANTİK MESAJLAR (20)
+# =======================
+MESSAGES = [
+    "Kalbin bugün de doğru cevabı buldu 💖",
+    "Zekân kalbime çok yakışıyor 🌸",
+    "Bugün de seni sevme nedenlerime bir tane eklendi 🫶",
+    "Bu cevap kadar net duygularım sana 💗",
+    "Bilgin parlıyor, tıpkı gülüşün gibi ✨",
+    "Birlikte her sorunun cevabıyız 💞",
+    "Beynin çalışıyor, kalbim hızlanıyor 😌",
+    "TUS seni beklesin, ben buradayım ❤️",
+    "Zihnin kadar ruhun da güzel 🌷",
+    "Bugün de sana hayran kaldım 💓",
+]
+
+# =======================
+# SESSION STATE
+# =======================
+if "gunluk_sorular" not in st.session_state:
+    st.session_state.gunluk_sorular = random.sample(QUESTIONS, 3)
+    st.session_state.index = 0
+    st.session_state.kullanilan_mesajlar = []
+
+# =======================
+# TÜM SORULAR BİTTİYSE
+# =======================
+if st.session_state.index >= 3:
+    st.success("🎉 Bugünün tüm sorularını tamamladın!")
+    st.balloons()
+    st.stop()
+
+# =======================
+# AKTİF SORU
+# =======================
+soru = st.session_state.gunluk_sorular[st.session_state.index]
+
+st.subheader(f"📝 Soru {st.session_state.index + 1}/3")
+st.write(soru["soru"])
+
+cevap = st.radio(
     "Cevabını seç:",
-    question["secenekler"],
-    key=f"q_{q_id}"
+    soru["secenekler"],
+    key=f"cevap_{st.session_state.index}"
 )
 
-# =====================
-# CEVAP KONTROL
-# =====================
-if st.button("Cevabı Gönder 💌"):
-    if choice == question["dogru"]:
-        st.balloons()
+# =======================
+# BUTON
+# =======================
+if st.button("Cevabı Gönder 🎁"):
+    if cevap == soru["dogru"]:
+        st.success("✅ Doğru!")
 
-        unused_messages = [
-            m for m in messages if m["id"] not in state["used_messages"]
-        ]
+        # Romantik mesaj (tekrar etmez)
+        kalan = [m for m in MESSAGES if m not in st.session_state.kullanilan_mesajlar]
+        if kalan:
+            mesaj = random.choice(kalan)
+            st.session_state.kullanilan_mesajlar.append(mesaj)
+            st.info(f"💌 {mesaj}")
 
-        if unused_messages:
-            msg = random.choice(unused_messages)
-            st.success(msg["text"])
-            state["used_messages"].append(msg["id"])
-
-        state["asked_questions"].append(q_id)
-        state["current_index"] += 1
-        save_json(STATE_FILE, state)
-        st.experimental_rerun()
+        st.session_state.index += 1
+        st.rerun()
     else:
-        st.warning("💭 Olmadı… bir daha dene, biliyorsun 💖")
+        st.warning("❌ Olmadı… bir daha dene 💭")
