@@ -9,7 +9,7 @@ import os
 # AYARLAR
 # =====================
 START_HOUR = 00
-START_MINUTE = 40
+START_MINUTE = 46
 QUESTIONS_PER_DAY = 3
 TIMEZONE = "Europe/Istanbul"
 
