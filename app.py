@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 st.set_page_config(page_title="Günaydın Güzelim", layout="centered")
 
 TURKEY_TZ = ZoneInfo("Europe/Istanbul")
-ACILIS_SAATI = datetime.time(5, 47)  # SAATİ BURADAN AYARLA
+ACILIS_SAATI = datetime.time(5, 52)  # SAATİ BURADAN AYARLA
 
 simdi = datetime.datetime.now(TURKEY_TZ).time()
 
@@ -87,10 +87,11 @@ questions = [
 # ---------------------------------
 romantik_mesajlar = [
     "Gün seninle anlamlı, ben seninle tamamım ❤️",
-    "Bugün de kalbimin en doğru yerindesin 💕",
+    "Bugünde kalbim seninle güne başladı 💕",
     "Bilgini seviyorum ama seni daha çok ✨",
     "Sabahım sen, motivasyonum sen 🌸",
     "Doğru cevaptan bile daha güzelsin 😌"
+    "Seninle başlayan yeni bir güne şükürler olsun🙏❤️"
 ]
 
 # ---------------------------------
@@ -102,7 +103,7 @@ st.markdown("### 📝 Günün Soruları")
 # ---------------------------------
 # İLK 3 SORU
 # ---------------------------------
-for i in range(3):
+for i in range(4):
     soru = questions[i]
 
     st.markdown(f"""
@@ -131,7 +132,7 @@ for i in range(3):
 # ---------------------------------
 # ROZET
 # ---------------------------------
-if st.session_state.dogru_sayisi >= 3 and not st.session_state.cozuldu:
+if st.session_state.dogru_sayisi >= 4 and not st.session_state.cozuldu:
     st.session_state.cozuldu = True
     st.balloons()
     st.markdown('<div class="badge">✅ Bugün Çözüldü</div>', unsafe_allow_html=True)
