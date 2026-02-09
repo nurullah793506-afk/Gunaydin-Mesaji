@@ -44,9 +44,8 @@ st.markdown("<div class='title'>🌸 Günaydın Güzelim 🌸</div>", unsafe_all
 
 # ================== SAAT ==================
 now = datetime.datetime.now(ZoneInfo("Europe/Istanbul"))
-unlock_time = now.replace(hour=5, minute=32, second=0, microsecond=0)
+unlock_time = now.replace(hour=5, minute=35, second=0, microsecond=0)
 
-# Kilit kontrolü
 if now < unlock_time:
     st.markdown(f"""
     <div class='card subtitle'>
@@ -60,8 +59,8 @@ today = now.date()
 
 if "tarih" not in st.session_state or st.session_state.tarih != today:
     st.session_state.tarih = today
+    st.session_state.soru_index = 0
     st.session_state.cozuldu = False
-    st.session_state.gunluk_index = today.toordinal() % 4
 
 # ================== GÜNAYDIN ==================
 gunaydin_mesajlari = [
@@ -105,29 +104,39 @@ questions = [
     }
 ]
 
-soru = questions[st.session_state.gunluk_index]
+# ================== TÜM SORULAR BİTTİYSE ==================
+if st.session_state.soru_index >= len(questions):
+    st.markdown("""
+    <div class='card subtitle'>
+        🌸 Bugünün tüm sorularını bitirdin 🌸  
+        <br><br>
+        Hem bilginle hem kalbinle yine harikaydın 💖  
+        Yarın yeni bir sürprizde buluşalım 😌
+    </div>
+    """, unsafe_allow_html=True)
+    st.session_state.cozuldu = True
+    st.stop()
 
-# ================== KART ==================
+# ================== AKTİF SORU ==================
+soru = questions[st.session_state.soru_index]
+
 st.markdown("<div class='card'>", unsafe_allow_html=True)
-
-st.markdown("### 📝 Günün Sorusu")
+st.markdown(f"### 📝 Soru {st.session_state.soru_index + 1}")
 st.write(soru["soru"])
 
-# ======= ÇÖZÜLDÜYSE =======
-if st.session_state.cozuldu:
-    st.markdown("<div class='badge'>🏅 Bugün Çözüldü</div>", unsafe_allow_html=True)
-    st.success(soru["mesaj"])
+secim = st.radio(
+    "Cevabını seç:",
+    soru["secenekler"],
+    key=f"secim_{st.session_state.soru_index}"
+)
 
-# ======= HENÜZ ÇÖZÜLMEDİYSE =======
-else:
-    secim = st.radio("Cevabını seç:", soru["secenekler"], key="secim")
-
-    if st.button("Sürprizi Aç 🎁"):
-        if secim == soru["dogru"]:
-            st.session_state.cozuldu = True
-            st.balloons()
-            st.success(soru["mesaj"])
-        else:
-            st.warning("Bir tık daha düşün 💭 Tekrar dene 😌")
+if st.button("Cevabı Kontrol Et 🎁"):
+    if secim == soru["dogru"]:
+        st.success(soru["mesaj"])
+        st.balloons()
+        st.session_state.soru_index += 1
+        st.experimental_rerun()
+    else:
+        st.warning("Bir tık daha düşün 💭 Tekrar dene 😌")
 
 st.markdown("</div>", unsafe_allow_html=True)
