@@ -1,48 +1,64 @@
 import streamlit as st
 import datetime
-import random
+from zoneinfo import ZoneInfo
 
+# ---------------------------------
+# AYARLAR
+# ---------------------------------
 st.set_page_config(page_title="Günaydın Güzelim", layout="centered")
 
-# -----------------------------
-# SAAT AYARI
-# -----------------------------
-ACILIS_SAATI = datetime.time(5, 43)  # burayı istediğin gibi değiştir
+TURKEY_TZ = ZoneInfo("Europe/Istanbul")
+ACILIS_SAATI = datetime.time(5, 47)  # SAATİ BURADAN AYARLA
 
-simdi = datetime.datetime.now().time()
+simdi = datetime.datetime.now(TURKEY_TZ).time()
 
+# ---------------------------------
+# STİL
+# ---------------------------------
 st.markdown("""
 <style>
 .card {
     background-color: #fff0f6;
     padding: 20px;
     border-radius: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .badge {
     background-color: #ff4d6d;
     color: white;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 20px;
     font-weight: bold;
-    display: inline-block;
     margin-top: 12px;
+    display: inline-block;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
-# KAPALIYSA
-# -----------------------------
+# ---------------------------------
+# SAAT KONTROLÜ
+# ---------------------------------
 if simdi < ACILIS_SAATI:
-    st.markdown("## 🌸 Günaydın Her Şeyim ❤️")
+    st.markdown("## 🌸 Günaydın Her Şeyim❤️🥰😍")
     st.info(f"⏰ Günün sürprizi saat **{ACILIS_SAATI.strftime('%H:%M')}**'de açılacak 💖")
     st.stop()
 
-# -----------------------------
+# ---------------------------------
+# SESSION STATE
+# ---------------------------------
+if "dogru_sayisi" not in st.session_state:
+    st.session_state.dogru_sayisi = 0
+
+if "mesaj_index" not in st.session_state:
+    st.session_state.mesaj_index = 0
+
+if "cozuldu" not in st.session_state:
+    st.session_state.cozuldu = False
+
+# ---------------------------------
 # SORULAR
-# -----------------------------
+# ---------------------------------
 questions = [
     {
         "soru": "Acil serviste akut koroner sendrom şüphesiyle gelen hastada ilk tetkik nedir?",
@@ -66,58 +82,55 @@ questions = [
     }
 ]
 
+# ---------------------------------
+# ROMANTİK MESAJLAR (TEKRARSIZ)
+# ---------------------------------
 romantik_mesajlar = [
-    "Kalbim seninle aynı ritimde atıyor ❤️",
-    "Güne seni düşünerek başlamak en güzel alışkanlığım 💕",
-    "Bilgin kadar gülüşün de ışık saçıyor ✨",
-    "Bugün de seni sevmenin huzuruyla uyandım 🌸",
-    "Doğru cevaptan daha güzeli sensin 😌"
+    "Gün seninle anlamlı, ben seninle tamamım ❤️",
+    "Bugün de kalbimin en doğru yerindesin 💕",
+    "Bilgini seviyorum ama seni daha çok ✨",
+    "Sabahım sen, motivasyonum sen 🌸",
+    "Doğru cevaptan bile daha güzelsin 😌"
 ]
 
-# -----------------------------
-# SESSION STATE
-# -----------------------------
-if "dogru_sayisi" not in st.session_state:
-    st.session_state.dogru_sayisi = 0
-
-if "cozuldu" not in st.session_state:
-    st.session_state.cozuldu = False
-
-# -----------------------------
+# ---------------------------------
 # BAŞLIK
-# -----------------------------
+# ---------------------------------
 st.markdown("## 🌸 Günaydın Güzelim 🌸")
 st.markdown("### 📝 Günün Soruları")
 
-# -----------------------------
+# ---------------------------------
 # İLK 3 SORU
-# -----------------------------
+# ---------------------------------
 for i in range(3):
     soru = questions[i]
 
-    with st.container():
-        st.markdown(f"""
-        <div class="card">
-        <b>{i+1}. {soru['soru']}</b>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="card">
+    <b>{i+1}. {soru['soru']}</b>
+    </div>
+    """, unsafe_allow_html=True)
 
-        cevap = st.radio(
-            label="",
-            options=soru["secenekler"],
-            key=f"soru_{i}"
-        )
+    cevap = st.radio(
+        label="",
+        options=soru["secenekler"],
+        key=f"soru_{i}"
+    )
 
-        if st.button("Cevabı Kontrol Et", key=f"btn_{i}"):
-            if cevap == soru["dogru"]:
-                st.session_state.dogru_sayisi += 1
-                st.success(random.choice(romantik_mesajlar))
-            else:
-                st.error("Olmadı aşkım 😌 bir daha dene 💗")
+    if st.button("Cevabı Kontrol Et", key=f"btn_{i}"):
 
-# -----------------------------
+        if cevap == soru["dogru"]:
+            if st.session_state.mesaj_index < len(romantik_mesajlar):
+                st.success(romantik_mesajlar[st.session_state.mesaj_index])
+                st.session_state.mesaj_index += 1
+
+            st.session_state.dogru_sayisi += 1
+        else:
+            st.error("Olmadı aşkım 😌 bir daha dene 💗")
+
+# ---------------------------------
 # ROZET
-# -----------------------------
+# ---------------------------------
 if st.session_state.dogru_sayisi >= 3 and not st.session_state.cozuldu:
     st.session_state.cozuldu = True
     st.balloons()
