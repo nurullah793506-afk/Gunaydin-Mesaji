@@ -1,138 +1,91 @@
 import streamlit as st
+import json
+import random
 import datetime
 from zoneinfo import ZoneInfo
+from pathlib import Path
 
-# ---------------------------------
+# -------------------------
 # AYARLAR
-# ---------------------------------
+# -------------------------
 st.set_page_config(page_title="Günaydın Güzelim", layout="centered")
+TZ = ZoneInfo("Europe/Istanbul")
+GUNLUK_SORU_SAYISI = 3
 
-TURKEY_TZ = ZoneInfo("Europe/Istanbul")
-ACILIS_SAATI = datetime.time(8, 45)  # SAATİ BURADAN AYARLA
+BASE_PATH = Path(__file__).parent
+QUESTIONS_FILE = BASE_PATH / "questions.json"
+ASKED_FILE = BASE_PATH / "asked_questions.json"
 
-simdi = datetime.datetime.now(TURKEY_TZ).time()
+# -------------------------
+# DOSYA OKUMA
+# -------------------------
+def load_json(path):
+    if not path.exists():
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-# ---------------------------------
-# STİL
-# ---------------------------------
-st.markdown("""
-<style>
-.card {
-    background-color: #fff0f6;
-    padding: 20px;
-    border-radius: 18px;
-    margin-bottom: 18px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-.badge {
-    background-color: #ff4d6d;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    margin-top: 12px;
-    display: inline-block;
-}
-</style>
-""", unsafe_allow_html=True)
+def save_json(path, data):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-# ---------------------------------
-# SAAT KONTROLÜ
-# ---------------------------------
-if simdi < ACILIS_SAATI:
-    st.markdown("## 🌸 Günaydın Her Şeyim❤️🥰😍")
-    st.info(f"⏰ Günün sürprizi saat **{ACILIS_SAATI.strftime('%H:%M')}**'de açılacak 💖")
-    st.stop()
+questions = load_json(QUESTIONS_FILE)
+asked_ids = load_json(ASKED_FILE)
 
-# ---------------------------------
-# SESSION STATE
-# ---------------------------------
-if "dogru_sayisi" not in st.session_state:
-    st.session_state.dogru_sayisi = 0
+# -------------------------
+# GÜNLÜK SORU SEÇİMİ
+# -------------------------
+today = datetime.date.today().isoformat()
 
-if "mesaj_index" not in st.session_state:
-    st.session_state.mesaj_index = 0
+if "today" not in st.session_state or st.session_state.today != today:
+    st.session_state.today = today
+    st.session_state.answers = {}
+    st.session_state.correct = 0
 
-if "cozuldu" not in st.session_state:
-    st.session_state.cozuldu = False
+    kalan_sorular = [q for q in questions if q["id"] not in asked_ids]
 
-# ---------------------------------
-# SORULAR
-# ---------------------------------
-questions = [
-    {
-        "soru": "Acil serviste akut koroner sendrom şüphesiyle gelen hastada ilk tetkik nedir?",
-        "secenekler": ["EKG", "Akciğer Grafisi", "Kan Gazı"],
-        "dogru": "EKG"
-    },
-    {
-        "soru": "EKG'de testere dişi görünümü hangi ritim bozukluğunu gösterir?",
-        "secenekler": ["Atrial Fibrilasyon", "Atrial Flutter", "Ventriküler Taşikardi"],
-        "dogru": "Atrial Flutter"
-    },
-    {
-        "soru": "Yenidoğanda K vitamini hangi kasa uygulanır?",
-        "secenekler": ["M. Deltoideus", "M. Gluteus Maximus", "M. Vastus Lateralis"],
-        "dogru": "M. Vastus Lateralis"
-    },
-    {
-        "soru": "Diş Zikzik ve Erkek Zikziğin en sevdiği sebze nedir?",
-        "secenekler": ["Elma", "Lahana", "Maydanoz"],
-        "dogru": "Maydanoz"
-    }
-]
+    if len(kalan_sorular) < GUNLUK_SORU_SAYISI:
+        st.error("Sorulacak yeni soru kalmadı 💔")
+        st.stop()
 
-# ---------------------------------
-# ROMANTİK MESAJLAR (TEKRARSIZ)
-# ---------------------------------
-romantik_mesajlar = [
-    "Gün seninle anlamlı, ben seninle tamamım ❤️",
-    "Bugünde kalbim seninle güne başladı 💕",
-    "Bilgini seviyorum ama seni daha çok ✨",
-    "Sabahım sen, motivasyonum sen 🌸",
-    "Doğru cevaptan bile daha güzelsin 😌"
-    "Seninle başlayan yeni bir güne şükürler olsun🙏❤️"
-]
+    gunluk_sorular = random.sample(kalan_sorular, GUNLUK_SORU_SAYISI)
+    st.session_state.gunluk_sorular = gunluk_sorular
 
-# ---------------------------------
+    for q in gunluk_sorular:
+        asked_ids.append(q["id"])
+
+    save_json(ASKED_FILE, asked_ids)
+
+# -------------------------
 # BAŞLIK
-# ---------------------------------
+# -------------------------
 st.markdown("## 🌸 Günaydın Güzelim 🌸")
-st.markdown("### 📝 Günün Soruları")
+st.markdown("### 🧠 Günün TUS Soruları")
 
-# ---------------------------------
-# İLK 3 SORU
-# ---------------------------------
-for i in range(4):
-    soru = questions[i]
-
-    st.markdown(f"""
-    <div class="card">
-    <b>{i+1}. {soru['soru']}</b>
-    </div>
-    """, unsafe_allow_html=True)
+# -------------------------
+# SORULAR
+# -------------------------
+for idx, soru in enumerate(st.session_state.gunluk_sorular):
+    st.markdown(f"**{idx+1}. {soru['soru']}**")
 
     cevap = st.radio(
-        label="",
-        options=soru["secenekler"],
-        key=f"soru_{i}"
+        "",
+        soru["secenekler"],
+        key=f"soru_{soru['id']}"
     )
 
-    if st.button("Cevabı Kontrol Et", key=f"btn_{i}"):
-
+    if st.button("Cevabı Kontrol Et", key=f"btn_{soru['id']}"):
         if cevap == soru["dogru"]:
-            if st.session_state.mesaj_index < len(romantik_mesajlar):
-                st.success(romantik_mesajlar[st.session_state.mesaj_index])
-                st.session_state.mesaj_index += 1
-
-            st.session_state.dogru_sayisi += 1
+            st.success("Doğru 💖")
+            st.session_state.correct += 1
         else:
-            st.error("Olmadı aşkım 😌 bir daha dene 💗")
+            st.error(f"Yanlış 😌 Doğru cevap: {soru['dogru']}")
 
-# ---------------------------------
+    st.markdown("---")
+
+# -------------------------
 # ROZET
-# ---------------------------------
-if st.session_state.dogru_sayisi >= 4 and not st.session_state.cozuldu:
-    st.session_state.cozuldu = True
+# -------------------------
+if st.session_state.correct >= GUNLUK_SORU_SAYISI:
     st.balloons()
-    st.markdown('<div class="badge">✅ Bugün Çözüldü</div>', unsafe_allow_html=True)
+    st.markdown("### ✅ Bugün Çözüldü 💖")
