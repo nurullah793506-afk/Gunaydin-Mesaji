@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 st.set_page_config(page_title="Günaydın Güzelim", layout="centered")
 
 TURKEY_TZ = ZoneInfo("Europe/Istanbul")
-ACILIS_SAATI = datetime.time(5, 52)  # SAATİ BURADAN AYARLA
+ACILIS_SAATI = datetime.time(8, 45)  # SAATİ BURADAN AYARLA
 
 simdi = datetime.datetime.now(TURKEY_TZ).time()
 
