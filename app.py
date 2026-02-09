@@ -49,5 +49,6 @@ if st.button("Sürprizi Aç 🎁"):
         st.success(soru["odul"])
         st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZjR4N3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV3VfW2WME/giphy.gif")
     else:
-        st.warning("Hımm, biraz daha düşünmen gerekebilir mi?
+        st.st.warning("Hımm, biraz daha düşünmen gerekebilir mi? 💭")
+
 
