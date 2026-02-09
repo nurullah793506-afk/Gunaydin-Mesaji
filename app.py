@@ -1,59 +1,129 @@
 import streamlit as st
-import random
+import datetime
 
+# ================== SAYFA ==================
 st.set_page_config(
     page_title="Günün Sürprizi",
-    page_icon="❤️"
+    page_icon="🌸",
+    layout="centered"
 )
 
-st.title("🌸 Günaydın Güzelim 🌸")
+# ================== CSS ==================
+st.markdown("""
+<style>
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    margin-top: 20px;
+}
+.badge {
+    background: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 14px;
+}
+.title {
+    text-align: center;
+    font-size: 26px;
+}
+.subtitle {
+    text-align: center;
+    color: #666;
+}
+</style>
+""", unsafe_allow_html=True)
 
+st.markdown("<div class='title'>🌸 Günaydın Güzelim 🌸</div>", unsafe_allow_html=True)
+
+# ================== SAAT ==================
+now = datetime.datetime.now()
+unlock_time = now.replace(hour=8, minute=30, second=0, microsecond=0)
+
+if now < unlock_time:
+    st.markdown("""
+    <div class='card'>
+        ⏰ Günün sürprizi saat <b>08:30</b>'da açılacak 💖
+    </div>
+    """, unsafe_allow_html=True)
+    st.stop()
+
+# ================== GÜN RESET ==================
+today = now.date()
+
+if "tarih" not in st.session_state or st.session_state.tarih != today:
+    st.session_state.tarih = today
+    st.session_state.cozuldu = False
+    st.session_state.gunluk_index = today.toordinal() % 4
+
+# ================== GÜNAYDIN ==================
+gunaydin_mesajlari = [
+    "Bugün de kalbim seninle güne başladı 💕",
+    "Seninle başlayan yeni bir güne şükürler olsun✨",
+    "Bilgin kadar güzel bir gün olsun 🌷",
+    "Yine gülüşünle aydınlanan bir sabah ☀️"
+]
+
+st.markdown(f"""
+<div class='card subtitle'>
+{gunaydin_mesajlari[today.toordinal() % len(gunaydin_mesajlari)]}
+</div>
+""", unsafe_allow_html=True)
+
+# ================== SORULAR ==================
 questions = [
     {
-        "soru": "Acil serviste 'akut koroner sendrom' şüphesiyle gelen hastada çekilmesi gereken ilk tetkik nedir?",
+        "soru": "Acil serviste akut koroner sendrom şüphesiyle gelen hastada ilk tetkik nedir?",
         "secenekler": ["EKG", "Akciğer Grafisi", "Kan Gazı"],
         "dogru": "EKG",
-        "mesaj": "Tıpkı bu EKG gibi, kalbim seninle her an ritim tutuyor ❤️"
+        "mesaj": "Kalbim seninle aynı ritimde atıyor ❤️"
     },
     {
-        "soru": "Diş Zikzik ve Erkek Zikziğin en sevdiği meyve/sebze nedir?",
-        "secenekler": ["Elma", "Havuç", "Maydanoz"],
+        "soru": "Diş Zikzik ve Erkek Zikziğin en sevdiği sebze nedir?",
+        "secenekler": ["Elma", "Lahan", "Maydanoz"],
         "dogru": "Maydanoz",
-        "mesaj": "Kuşlarımızın cıvıltısı kadar neşeli bir gün olsun 🐦"
+        "mesaj": "Kuşlarımız kadar neşeli bir gün geçir🐦"
     },
     {
-        "soru": "EKG'de 'testere dişi' görünümü hangi ritim bozukluğuna işaret eder?",
+        "soru": "EKG'de testere dişi görünümü hangi ritim bozukluğunu gösterir?",
         "secenekler": ["Atrial Fibrilasyon", "Atrial Flutter", "Ventriküler Taşikardi"],
         "dogru": "Atrial Flutter",
-        "mesaj": "Kalbin ritmi gibi günün de harika aksın 💓"
+        "mesaj": "Aşk Ritmimiz daim olsun 💓"
     },
     {
-        "soru": "Yenidoğanlarda K vitamini eksikliğine bağlı kanamayı önlemek için hangi kas içine enjeksiyon yapılır?",
+        "soru": "Yenidoğanda K vitamini hangi kasa uygulanır?",
         "secenekler": ["M. Deltoideus", "M. Gluteus Maximus", "M. Vastus Lateralis"],
         "dogru": "M. Vastus Lateralis",
-        "mesaj": "Bilgin taze, zihnin benle dolsun ✨"
+        "mesaj": "Bilgin de güzelliğin gibi parıl parıl parlıyor ✨"
     }
 ]
 
-# Günün sorusu
-if "soru_no" not in st.session_state:
-    st.session_state.soru_no = random.randint(0, len(questions) - 1)
+soru = questions[st.session_state.gunluk_index]
 
-soru = questions[st.session_state.soru_no]
+# ================== KART ==================
+st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-st.subheader("📝 Günün Sorusu")
-st.info(soru["soru"])
+st.markdown("### 📝 Günün Sorusu")
+st.write(soru["soru"])
 
-# ✅ ÇOKTAN SEÇMELİ
-cevap = st.radio(
-    "Cevabını seç:",
-    soru["secenekler"]
-)
+# ======= ÇÖZÜLDÜYSE =======
+if st.session_state.cozuldu:
+    st.markdown("<div class='badge'>🏅 Bugün Çözüldü</div>", unsafe_allow_html=True)
+    st.success(soru["mesaj"])
 
-if st.button("Sürprizi Aç 🎁"):
-    if cevap == soru["dogru"]:
-        st.balloons()
-        st.success(soru["mesaj"])
-        st.image("https://media.giphy.com/media/l41lTfuxV3VfW2WME/giphy.gif")
-    else:
-        st.warning("Hımm, biraz daha düşünmek ister misin? 💭")
+# ======= HENÜZ ÇÖZÜLMEDİYSE =======
+else:
+    secim = st.radio("Cevabını seç:", soru["secenekler"])
+
+    if st.button("Sürprizi Aç 🎁"):
+        if secim == soru["dogru"]:
+            st.session_state.cozuldu = True
+            st.balloons()
+            st.success(soru["mesaj"])
+        else:
+            st.warning("Bir tık daha düşün 💭 Tekrar dene 😌")
+
+st.markdown("</div>", unsafe_allow_html=True)
