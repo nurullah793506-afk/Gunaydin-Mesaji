@@ -121,6 +121,5 @@
     "secenekler": ["Hepatit A", "Koledok taşı", "Siroz", "Hemoliz"],
     "dogru": "Koledok taşı"
   }
-
-  // 21–100 arası aynı kalite ve TUS stilinde hazırlanır
 ]
+
