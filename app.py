@@ -7,7 +7,7 @@ import pytz
 
 # ===================== AYARLAR =====================
 TIMEZONE = pytz.timezone("Europe/Istanbul")
-ACILIS_SAATI = time(1, 24)   # 08:30
+ACILIS_SAATI = time(8, 30)      # 08:30
 GUNLUK_SORU_SAYISI = 3
 
 QUESTIONS_FILE = "questions.json"
@@ -20,9 +20,7 @@ st.set_page_config(page_title="Günün Sürprizi", page_icon="🌸")
 st.title("🌸 Günaydın Güzelim 🌸")
 
 # ===================== ZAMAN KONTROL =====================
-now_dt = datetime.now(TIMEZONE)
-now = now_dt.time()
-
+now = datetime.now(TIMEZONE).time()
 if now < ACILIS_SAATI:
     st.info(f"⏰ Günün sürprizi saat {ACILIS_SAATI.strftime('%H:%M')}'de açılacak 💖")
     st.stop()
@@ -42,32 +40,39 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 # ==========================================================
 
-# ===================== VERİLERİ YÜKLE =====================
+# ===================== VERİLER =====================
 questions = load_json(QUESTIONS_FILE, [])
 asked_questions = load_json(ASKED_FILE, [])
 messages = load_json(MESSAGES_FILE, [])
 used_messages = load_json(USED_MESSAGES_FILE, [])
-# ==========================================================
+# ==================================================
 
-# ===================== BUGÜNÜN SORULARI =====================
-today = now_dt.strftime("%Y-%m-%d")
+# ===================== GÜN KONTROL =====================
+today = datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
 if "today" not in st.session_state or st.session_state.today != today:
     st.session_state.today = today
     st.session_state.q_index = 0
+    st.session_state.today_questions = []
+    st.session_state.show_message = None
 
-    remaining_questions = [
-        q for q in questions if q["id"] not in asked_questions
-    ]
+    remaining = [q for q in questions if q["id"] not in asked_questions]
 
-    if len(remaining_questions) < GUNLUK_SORU_SAYISI:
-        st.success("🎉 Bugünün tüm sorularını tamamladın!")
+    if len(remaining) < GUNLUK_SORU_SAYISI:
+        st.success("🎉 Tüm sorular tamamlandı!")
         st.stop()
 
     st.session_state.today_questions = random.sample(
-        remaining_questions, GUNLUK_SORU_SAYISI
+        remaining, GUNLUK_SORU_SAYISI
     )
-# ===========================================================
+# ==================================================
+
+# ===================== ROMANTİK MESAJ GÖSTER =====================
+if st.session_state.get("show_message"):
+    st.success("💖 " + st.session_state.show_message)
+    st.balloons()
+    st.session_state.show_message = None
+# ===============================================================
 
 today_questions = st.session_state.today_questions
 q_index = st.session_state.q_index
@@ -76,7 +81,7 @@ if q_index >= len(today_questions):
     st.success("🎉 Bugünün tüm sorularını tamamladın!")
     st.stop()
 
-# ===================== SORU GÖSTER =====================
+# ===================== SORU =====================
 q = today_questions[q_index]
 
 st.subheader(f"📝 Soru {q_index + 1}")
@@ -90,26 +95,21 @@ choice = st.radio(
 
 if st.button("Cevabı Onayla ✅"):
     if choice == q["dogru"]:
-        st.success("✅ Doğru!")
-
-        # Soruyu kalıcı olarak işaretle
+        # Soruyu işaretle
         asked_questions.append(q["id"])
         save_json(ASKED_FILE, asked_questions)
 
         # Romantik mesaj (tekrar etmeyen)
-        available_messages = [
-            m for m in messages if m not in used_messages
-        ]
+        available_messages = [m for m in messages if m not in used_messages]
 
         if available_messages:
-            romantic_message = random.choice(available_messages)
-            used_messages.append(romantic_message)
+            msg = random.choice(available_messages)
+            used_messages.append(msg)
             save_json(USED_MESSAGES_FILE, used_messages)
-            st.success("💖 " + romantic_message)
+            st.session_state.show_message = msg
 
-        st.balloons()
         st.session_state.q_index += 1
         st.rerun()
     else:
-        st.warning("❌ Yanlış, hadi bir daha dene 💭")
-# =====================================================
+        st.warning("❌ hadi bir daha deneyelim aşkım 💭")
+# ==================================================
