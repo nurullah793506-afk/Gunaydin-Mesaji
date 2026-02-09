@@ -22,7 +22,7 @@ st.title("🌸 Günaydın Güzelliğim 💖")
 # ===================== ZAMAN KONTROL =====================
 now = datetime.now(TIMEZONE).time()
 if now < ACILIS_SAATI:
-    st.info(f"⏰ Günün sürprizi saat {ACILIS_SAATI.strftime('%H:%M')}'de açılacak 💖")
+    st.info(f"⏰ Günün seçilmiş soruları saat {ACILIS_SAATI.strftime('%H:%M')}'de açılacak 💖")
     st.stop()
 # ========================================================
 
