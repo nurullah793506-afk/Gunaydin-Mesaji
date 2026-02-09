@@ -22,14 +22,16 @@ st.markdown("""
 .badge {
     background: #4CAF50;
     color: white;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     display: inline-block;
     font-size: 14px;
+    margin-bottom: 10px;
 }
 .title {
     text-align: center;
     font-size: 26px;
+    font-weight: 600;
 }
 .subtitle {
     text-align: center;
@@ -42,12 +44,13 @@ st.markdown("<div class='title'>🌸 Günaydın Güzelim 🌸</div>", unsafe_all
 
 # ================== SAAT ==================
 now = datetime.datetime.now(ZoneInfo("Europe/Istanbul"))
-unlock_time = now.replace(hour=8, minute=30, second=0, microsecond=0)
+unlock_time = now.replace(hour=5, minute=32, second=0, microsecond=0)
 
+# Kilit kontrolü
 if now < unlock_time:
-    st.markdown("""
-    <div class='card'>
-        ⏰ Günün sürprizi saat <b>05:26</b>'da açılacak 💖
+    st.markdown(f"""
+    <div class='card subtitle'>
+        ⏰ Günün sürprizi saat <b>{unlock_time.strftime('%H:%M')}</b>'da açılacak 💖
     </div>
     """, unsafe_allow_html=True)
     st.stop()
@@ -63,7 +66,7 @@ if "tarih" not in st.session_state or st.session_state.tarih != today:
 # ================== GÜNAYDIN ==================
 gunaydin_mesajlari = [
     "Bugün de kalbim seninle güne başladı 💕",
-    "Seninle başlayan yeni bir güne şükürler olsun✨",
+    "Seninle başlayan yeni bir güne şükürler olsun ✨",
     "Bilgin kadar güzel bir gün olsun 🌷",
     "Yine gülüşünle aydınlanan bir sabah ☀️"
 ]
@@ -84,21 +87,21 @@ questions = [
     },
     {
         "soru": "Diş Zikzik ve Erkek Zikziğin en sevdiği sebze nedir?",
-        "secenekler": ["Elma", "Lahan", "Maydanoz"],
+        "secenekler": ["Elma", "Lahana", "Maydanoz"],
         "dogru": "Maydanoz",
-        "mesaj": "Kuşlarımız kadar neşeli bir gün geçir🐦"
+        "mesaj": "Kuşlarımız kadar neşeli bir gün geçir 🐦"
     },
     {
         "soru": "EKG'de testere dişi görünümü hangi ritim bozukluğunu gösterir?",
         "secenekler": ["Atrial Fibrilasyon", "Atrial Flutter", "Ventriküler Taşikardi"],
         "dogru": "Atrial Flutter",
-        "mesaj": "Aşk Ritmimiz daim olsun 💓"
+        "mesaj": "Aşk ritmimiz daim olsun 💓"
     },
     {
         "soru": "Yenidoğanda K vitamini hangi kasa uygulanır?",
         "secenekler": ["M. Deltoideus", "M. Gluteus Maximus", "M. Vastus Lateralis"],
         "dogru": "M. Vastus Lateralis",
-        "mesaj": "Bilgin de güzelliğin gibi parıl parıl parlıyor ✨"
+        "mesaj": "Bilgin de güzelliğin gibi parıl parıl ✨"
     }
 ]
 
@@ -117,7 +120,7 @@ if st.session_state.cozuldu:
 
 # ======= HENÜZ ÇÖZÜLMEDİYSE =======
 else:
-    secim = st.radio("Cevabını seç:", soru["secenekler"])
+    secim = st.radio("Cevabını seç:", soru["secenekler"], key="secim")
 
     if st.button("Sürprizi Aç 🎁"):
         if secim == soru["dogru"]:
