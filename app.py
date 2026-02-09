@@ -44,7 +44,7 @@ st.markdown("<div class='title'>🌸 Günaydın Güzelim 🌸</div>", unsafe_all
 
 # ================== SAAT ==================
 now = datetime.datetime.now(ZoneInfo("Europe/Istanbul"))
-unlock_time = now.replace(hour=5, minute=35, second=0, microsecond=0)
+unlock_time = now.replace(hour=5, minute=38, second=0, microsecond=0)
 
 if now < unlock_time:
     st.markdown(f"""
@@ -135,7 +135,7 @@ if st.button("Cevabı Kontrol Et 🎁"):
         st.success(soru["mesaj"])
         st.balloons()
         st.session_state.soru_index += 1
-        st.experimental_rerun()
+        st.rerun()
     else:
         st.warning("Bir tık daha düşün 💭 Tekrar dene 😌")
 
