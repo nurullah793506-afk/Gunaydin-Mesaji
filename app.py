@@ -16,8 +16,8 @@ MESSAGES_FILE = "messages.json"
 USED_MESSAGES_FILE = "used_messages.json"
 # ==================================================
 
-st.set_page_config(page_title="Günün Sürprizi", page_icon="🌸")
-st.title("🌸 Günaydın Güzelim 🌸")
+st.set_page_config(page_title="Günün Seçilmiş Soruları", page_icon="🌸")
+st.title("🌸 Günaydın Güzelliğim 💖")
 
 # ===================== ZAMAN KONTROL =====================
 now = datetime.now(TIMEZONE).time()
@@ -111,5 +111,5 @@ if st.button("Cevabı Onayla ✅"):
         st.session_state.q_index += 1
         st.rerun()
     else:
-        st.warning("❌ hadi bir daha deneyelim aşkım 💭")
+        st.warning("❌ hadi bir daha deneyelim aşkım 💖💭")
 # ==================================================
