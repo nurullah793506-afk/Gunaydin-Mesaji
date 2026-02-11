@@ -7,7 +7,7 @@ import pytz
 
 # ===================== AYARLAR =====================
 TIMEZONE = pytz.timezone("Europe/Istanbul")
-ACILIS_SAATI = time(9, 30)      # 08:30
+ACILIS_SAATI = time(9, 23)      # 08:30
 GUNLUK_SORU_SAYISI = 3
 
 QUESTIONS_FILE = "questions.json"
@@ -17,7 +17,7 @@ USED_MESSAGES_FILE = "used_messages.json"
 # ==================================================
 
 st.set_page_config(page_title="Günün Seçilmiş Soruları", page_icon="🌸")
-st.title("🌸 Günaydın Güzelliğim 💖")
+st.title("🌸 Günaydın Güzelliğim 💖 Özür dilerim gecikme için😌")
 
 # ===================== ZAMAN KONTROL =====================
 now = datetime.now(TIMEZONE).time()
