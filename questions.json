@@ -1,125 +1,92 @@
 [
   {
     "id": 1,
-    "soru": "Subaraknoid kanamada en sık görülen ilk semptom hangisidir?",
-    "secenekler": ["Bulantı-kusma", "Ani şiddetli baş ağrısı", "Papilödem", "Bradikardi"],
-    "dogru": "Ani şiddetli baş ağrısı"
+    "soru": "6 yaş çocukta ateş, bilateral konjonktivit, çilek dili ve el-ayaklarda soyulma mevcut. En olası tanı nedir?",
+    "secenekler": ["Kızamık", "Kawasaki hastalığı", "Skarlatin", "Toksik şok sendromu"],
+    "dogru": "Kawasaki hastalığı"
   },
   {
     "id": 2,
-    "soru": "Mitral darlığında en erken ortaya çıkan oskültasyon bulgusu hangisidir?",
-    "secenekler": ["Diastolik rulman", "S1 şiddetlenmesi", "Açılma sesi", "S2 çiftleşmesi"],
-    "dogru": "Açılma sesi"
+    "soru": "2 aylık bebekte fışkırır tarzda safrasız kusma ve zeytin tanesi şeklinde kitle palpe ediliyor. En olası tanı nedir?",
+    "secenekler": ["Duodenal atrezi", "Pilor stenozu", "Gastroenterit", "İnvajinasyon"],
+    "dogru": "Pilor stenozu"
   },
   {
     "id": 3,
-    "soru": "Myasthenia gravis hastasında kaçınılması gereken antibiyotik hangisidir?",
-    "secenekler": ["Seftriakson", "Azitromisin", "Gentamisin", "Amoksisilin"],
-    "dogru": "Gentamisin"
+    "soru": "9 aylık bebekte çilek jölesi görünümünde dışkı ve aralıklı şiddetli ağlama mevcut. En olası tanı nedir?",
+    "secenekler": ["Hirschsprung", "İnvajinasyon", "Apandisit", "Gastroenterit"],
+    "dogru": "İnvajinasyon"
   },
   {
     "id": 4,
-    "soru": "Aşağıdakilerden hangisi nefrotik sendromda hiperkoagülabilite nedenidir?",
-    "secenekler": ["Faktör VIII azalması", "Antitrombin III kaybı", "Trombositopeni", "Protein C artışı"],
-    "dogru": "Antitrombin III kaybı"
+    "soru": "3 yaş çocukta masif proteinüri, hipoalbuminemi ve ödem mevcut. En olası tanı nedir?",
+    "secenekler": ["Minimal değişiklik hastalığı", "IgA nefropatisi", "HUS", "APSGN"],
+    "dogru": "Minimal değişiklik hastalığı"
   },
   {
     "id": 5,
-    "soru": "Hangi vitamin eksikliği yenidoğanda hemorajik hastalığa yol açar?",
-    "secenekler": ["Vitamin A", "Vitamin D", "Vitamin K", "Vitamin E"],
-    "dogru": "Vitamin K"
-  },
+    "soru": "2 yaş çocukta kanlı ishal sonrası anemi, trombositopeni ve böbrek yetmezliği gelişiyor. En olası tanı nedir?",
+    "secenekler": ["ITP", "HUS", "TTP", "DIC"],
+    "dogru": "HUS"
+  } ,
   {
     "id": 6,
-    "soru": "Down sendromunda en sık görülen kalp anomalisi hangisidir?",
-    "secenekler": ["ASD", "VSD", "AV septal defekt", "PDA"],
-    "dogru": "AV septal defekt"
+    "soru": "Yenidoğanda safralı kusma ve 'çift balon' görüntüsü mevcut. En olası tanı nedir?",
+    "secenekler": ["Pilor stenozu", "Duodenal atrezi", "Hirschsprung", "İnvajinasyon"],
+    "dogru": "Duodenal atrezi"
   },
   {
     "id": 7,
-    "soru": "Hangisi preeklampside görülen temel patofizyolojik mekanizmadır?",
-    "secenekler": ["Artmış plazma hacmi", "Endotelyal disfonksiyon", "Hipervolemi", "Artmış NO salınımı"],
-    "dogru": "Endotelyal disfonksiyon"
+    "soru": "7 yaş çocukta palpabl purpura, karın ağrısı ve hematüri mevcut. En olası tanı nedir?",
+    "secenekler": ["ITP", "Henoch-Schönlein purpurası", "SLE", "Akut romatizmal ateş"],
+    "dogru": "Henoch-Schönlein purpurası"
   },
   {
     "id": 8,
-    "soru": "Aşağıdakilerden hangisi akut pankreatitte kötü prognoz göstergesidir?",
-    "secenekler": ["Hipokalsemi", "Hiperglisemi", "Hiperkalsemi", "Hiponatremi"],
-    "dogru": "Hipokalsemi"
+    "soru": "Yenidoğanda makroglossi, omfalosel ve hipoglisemi mevcut. En olası sendrom nedir?",
+    "secenekler": ["Down sendromu", "Turner sendromu", "Beckwith-Wiedemann sendromu", "Noonan sendromu"],
+    "dogru": "Beckwith-Wiedemann sendromu"
   },
   {
     "id": 9,
-    "soru": "Hangi bakteri sporludur?",
-    "secenekler": ["Listeria", "Clostridium", "Neisseria", "Shigella"],
-    "dogru": "Clostridium"
+    "soru": "Tekrarlayan pnömoni ve yağlı dışkılama olan çocukta ter testi pozitif. En olası tanı nedir?",
+    "secenekler": ["Astım", "Kistik fibrozis", "Bronşektazi", "Primer siliyer diskinezi"],
+    "dogru": "Kistik fibrozis"
   },
   {
     "id": 10,
-    "soru": "Hangi hormon hipokalsemiye yanıt olarak artar?",
-    "secenekler": ["Kalsitonin", "Parathormon", "Aldosteron", "Kortizol"],
-    "dogru": "Parathormon"
+    "soru": "1 yaş bebekte nörodejenerasyon ve kiraz kırmızısı makula saptanıyor. En olası tanı nedir?",
+    "secenekler": ["Gaucher", "Tay-Sachs", "Niemann-Pick", "Fenilketonüri"],
+    "dogru": "Tay-Sachs"
   },
-
   {
     "id": 11,
-    "soru": "Hangi tümör psödohipoparatiroidizmle ilişkilidir?",
-    "secenekler": ["Osteosarkom", "Pankreas karsinomu", "Akciğer küçük hücreli", "Tiroid papiller"],
-    "dogru": "Akciğer küçük hücreli"
+    "soru": "12 yaş kız çocukta boy kısalığı ve 45,XO karyotip mevcut. En olası tanı nedir?",
+    "secenekler": ["Klinefelter", "Turner sendromu", "Noonan", "Prader-Willi"],
+    "dogru": "Turner sendromu"
   },
   {
     "id": 12,
-    "soru": "Aşağıdakilerden hangisi beta blokerlerin kontrendikasyonudur?",
-    "secenekler": ["Hipertansiyon", "Stabil anjina", "Astım", "Tirotoksikoz"],
-    "dogru": "Astım"
+    "soru": "4 yaş çocukta havlar tarzda öksürük ve inspiratuar stridor mevcut. En olası tanı nedir?",
+    "secenekler": ["Epiglottit", "Krup", "Astım", "Bronşiolit"],
+    "dogru": "Krup"
   },
   {
     "id": 13,
-    "soru": "Hiponatreminin en sık nedeni hangisidir?",
-    "secenekler": ["SIADH", "Diüretik kullanımı", "Kalp yetmezliği", "Aşırı su alımı"],
-    "dogru": "Diüretik kullanımı"
+    "soru": "Yenidoğanda mekonyum çıkaramama ve rektal tuşe sonrası ani gaz çıkışı mevcut. En olası tanı nedir?",
+    "secenekler": ["Duodenal atrezi", "Hirschsprung", "İnvajinasyon", "Pilor stenozu"],
+    "dogru": "Hirschsprung"
   },
   {
     "id": 14,
-    "soru": "Hangisi restriktif akciğer hastalığıdır?",
-    "secenekler": ["Astım", "KOAH", "Pulmoner fibrozis", "Bronşiektazi"],
-    "dogru": "Pulmoner fibrozis"
+    "soru": "Makrositik anemi ve nörolojik bulguları olan çocukta en olası eksiklik nedir?",
+    "secenekler": ["Demir", "B12 vitamini", "Folat", "Çinko"],
+    "dogru": "B12 vitamini"
   },
   {
     "id": 15,
-    "soru": "Aşağıdakilerden hangisi H. pylori eradikasyonunda kullanılır?",
-    "secenekler": ["Metronidazol", "Vankomisin", "Linezolid", "Daptomisin"],
-    "dogru": "Metronidazol"
-  },
-
-  {
-    "id": 16,
-    "soru": "Gebelikte en sık görülen tiroid hastalığı hangisidir?",
-    "secenekler": ["Graves", "Hashimoto", "Gestasyonel tirotoksikoz", "Subakut tiroidit"],
-    "dogru": "Gestasyonel tirotoksikoz"
-  },
-  {
-    "id": 17,
-    "soru": "Hangi vitamin eksikliğinde megaloblastik anemi görülür?",
-    "secenekler": ["B12", "C", "D", "K"],
-    "dogru": "B12"
-  },
-  {
-    "id": 18,
-    "soru": "Hangi patojen kapsüllüdür?",
-    "secenekler": ["Staphylococcus aureus", "Streptococcus pneumoniae", "E. coli", "Salmonella"],
-    "dogru": "Streptococcus pneumoniae"
-  },
-  {
-    "id": 19,
-    "soru": "Hangi elektrolit bozukluğu QT uzamasına yol açar?",
-    "secenekler": ["Hiperkalemi", "Hipokalsemi", "Hipernatremi", "Hipermagnezemi"],
-    "dogru": "Hipokalsemi"
-  },
-  {
-    "id": 20,
-    "soru": "Aşağıdakilerden hangisi obstrüktif sarılık nedenidir?",
-    "secenekler": ["Hepatit A", "Koledok taşı", "Siroz", "Hemoliz"],
-    "dogru": "Koledok taşı"
+    "soru": "Prematüre bebekte surfaktan eksikliğine bağlı solunum sıkıntısı gelişiyor. En olası tanı nedir?",
+    "secenekler": ["RDS", "Pnömoni", "Mekonyum aspirasyonu", "Bronşiolit"],
+    "dogru": "RDS"
   }
 ]
-
