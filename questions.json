@@ -1,92 +1,92 @@
 [
   {
     "id": 1,
-    "soru": "6 yaş çocukta ateş, bilateral konjonktivit, çilek dili ve el-ayaklarda soyulma mevcut. En olası tanı nedir?",
-    "secenekler": ["Kızamık", "Kawasaki hastalığı", "Skarlatin", "Toksik şok sendromu"],
-    "dogru": "Kawasaki hastalığı"
+    "soru": "Ani başlayan ateş, şiddetli boğaz ağrısı, salya akması ve öne eğilerek oturma pozisyonu olan 4 yaş çocukta en olası etken aşağıdakilerden hangisidir?",
+    "secenekler": ["Parainfluenza virüsü", "Respiratuvar sinsityal virüs", "Haemophilus influenzae tip b", "Streptococcus pyogenes"],
+    "dogru": "Haemophilus influenzae tip b"
   },
   {
     "id": 2,
-    "soru": "2 aylık bebekte fışkırır tarzda safrasız kusma ve zeytin tanesi şeklinde kitle palpe ediliyor. En olası tanı nedir?",
-    "secenekler": ["Duodenal atrezi", "Pilor stenozu", "Gastroenterit", "İnvajinasyon"],
-    "dogru": "Pilor stenozu"
+    "soru": "Astım krizinde aşağıdaki bulgulardan hangisi ağır atak göstergesidir?",
+    "secenekler": ["Hafif wheezing", "Konuşurken cümle kurabilme", "Sessiz akciğer", "SpO2 %96"],
+    "dogru": "Sessiz akciğer"
   },
   {
     "id": 3,
-    "soru": "9 aylık bebekte çilek jölesi görünümünde dışkı ve aralıklı şiddetli ağlama mevcut. En olası tanı nedir?",
-    "secenekler": ["Hirschsprung", "İnvajinasyon", "Apandisit", "Gastroenterit"],
-    "dogru": "İnvajinasyon"
+    "soru": "Akut romatizmal ateş tanısında aşağıdakilerden hangisi majör Jones kriteridir?",
+    "secenekler": ["Ateş", "Artralji", "Kardit", "Yükselmiş CRP"],
+    "dogru": "Kardit"
   },
   {
     "id": 4,
-    "soru": "3 yaş çocukta masif proteinüri, hipoalbuminemi ve ödem mevcut. En olası tanı nedir?",
-    "secenekler": ["Minimal değişiklik hastalığı", "IgA nefropatisi", "HUS", "APSGN"],
-    "dogru": "Minimal değişiklik hastalığı"
+    "soru": "Yenidoğanda sarılıkta aşağıdaki durumlardan hangisi patolojik sarılık lehinedir?",
+    "secenekler": ["3. günde başlaması", "Total bilirubinin 10 mg/dL olması", "İlk 24 saatte başlaması", "Sadece indirekt bilirubin yüksekliği"],
+    "dogru": "İlk 24 saatte başlaması"
   },
   {
     "id": 5,
-    "soru": "2 yaş çocukta kanlı ishal sonrası anemi, trombositopeni ve böbrek yetmezliği gelişiyor. En olası tanı nedir?",
-    "secenekler": ["ITP", "HUS", "TTP", "DIC"],
-    "dogru": "HUS"
-  } ,
+    "soru": "Demir eksikliği anemisinde aşağıdaki laboratuvar bulgularından hangisi beklenir?",
+    "secenekler": ["Yüksek ferritin", "Düşük TDBK", "Düşük MCV", "Yüksek transferrin satürasyonu"],
+    "dogru": "Düşük MCV"
+  },
   {
     "id": 6,
-    "soru": "Yenidoğanda safralı kusma ve 'çift balon' görüntüsü mevcut. En olası tanı nedir?",
-    "secenekler": ["Pilor stenozu", "Duodenal atrezi", "Hirschsprung", "İnvajinasyon"],
-    "dogru": "Duodenal atrezi"
+    "soru": "Hiperkaleminin EKG bulgularından en erken görüleni aşağıdakilerden hangisidir?",
+    "secenekler": ["Geniş QRS", "Sivri T dalgası", "PR uzaması", "P dalgası kaybı"],
+    "dogru": "Sivri T dalgası"
   },
   {
     "id": 7,
-    "soru": "7 yaş çocukta palpabl purpura, karın ağrısı ve hematüri mevcut. En olası tanı nedir?",
-    "secenekler": ["ITP", "Henoch-Schönlein purpurası", "SLE", "Akut romatizmal ateş"],
-    "dogru": "Henoch-Schönlein purpurası"
+    "soru": "Akut pankreatitte en sık görülen neden aşağıdakilerden hangisidir?",
+    "secenekler": ["Hiperkalsemi", "Alkol", "Hipertrigliseridemi", "ERCP sonrası"],
+    "dogru": "Alkol"
   },
   {
     "id": 8,
-    "soru": "Yenidoğanda makroglossi, omfalosel ve hipoglisemi mevcut. En olası sendrom nedir?",
-    "secenekler": ["Down sendromu", "Turner sendromu", "Beckwith-Wiedemann sendromu", "Noonan sendromu"],
-    "dogru": "Beckwith-Wiedemann sendromu"
+    "soru": "Nefrotik sendromda aşağıdaki bulgulardan hangisi beklenmez?",
+    "secenekler": ["Masif proteinüri", "Hipoalbüminemi", "Hiperkolesterolemi", "Hematuri baskınlığı"],
+    "dogru": "Hematuri baskınlığı"
   },
   {
     "id": 9,
-    "soru": "Tekrarlayan pnömoni ve yağlı dışkılama olan çocukta ter testi pozitif. En olası tanı nedir?",
-    "secenekler": ["Astım", "Kistik fibrozis", "Bronşektazi", "Primer siliyer diskinezi"],
-    "dogru": "Kistik fibrozis"
+    "soru": "Aşağıdaki durumlardan hangisinde aniyon gap artışı beklenmez?",
+    "secenekler": ["Laktik asidoz", "Ketoasidoz", "Metanol zehirlenmesi", "Diyare"],
+    "dogru": "Diyare"
   },
   {
     "id": 10,
-    "soru": "1 yaş bebekte nörodejenerasyon ve kiraz kırmızısı makula saptanıyor. En olası tanı nedir?",
-    "secenekler": ["Gaucher", "Tay-Sachs", "Niemann-Pick", "Fenilketonüri"],
-    "dogru": "Tay-Sachs"
+    "soru": "ST elevasyonlu miyokard enfarktüsünde ilk tercih edilen reperfüzyon tedavisi aşağıdakilerden hangisidir?",
+    "secenekler": ["Aspirin", "Heparin", "Primer perkütan koroner girişim", "Beta bloker"],
+    "dogru": "Primer perkütan koroner girişim"
   },
   {
     "id": 11,
-    "soru": "12 yaş kız çocukta boy kısalığı ve 45,XO karyotip mevcut. En olası tanı nedir?",
-    "secenekler": ["Klinefelter", "Turner sendromu", "Noonan", "Prader-Willi"],
-    "dogru": "Turner sendromu"
+    "soru": "Hipotiroidide aşağıdaki bulgulardan hangisi beklenir?",
+    "secenekler": ["Taşikardi", "Kilo kaybı", "Kabızlık", "Isı intoleransı"],
+    "dogru": "Kabızlık"
   },
   {
     "id": 12,
-    "soru": "4 yaş çocukta havlar tarzda öksürük ve inspiratuar stridor mevcut. En olası tanı nedir?",
-    "secenekler": ["Epiglottit", "Krup", "Astım", "Bronşiolit"],
-    "dogru": "Krup"
+    "soru": "Addison hastalığında aşağıdaki laboratuvar bulgularından hangisi görülür?",
+    "secenekler": ["Hipernatremi", "Hipokalemi", "Hipoglisemi", "Metabolik alkaloz"],
+    "dogru": "Hipoglisemi"
   },
   {
     "id": 13,
-    "soru": "Yenidoğanda mekonyum çıkaramama ve rektal tuşe sonrası ani gaz çıkışı mevcut. En olası tanı nedir?",
-    "secenekler": ["Duodenal atrezi", "Hirschsprung", "İnvajinasyon", "Pilor stenozu"],
-    "dogru": "Hirschsprung"
+    "soru": "Aşağıdakilerden hangisi tip 1 diyabet için doğrudur?",
+    "secenekler": ["İnsülin direnci temel sorundur", "Genellikle obezite ile birliktedir", "Otoimmün beta hücre yıkımı vardır", "Oral antidiyabetiklere iyi yanıt verir"],
+    "dogru": "Otoimmün beta hücre yıkımı vardır"
   },
   {
     "id": 14,
-    "soru": "Makrositik anemi ve nörolojik bulguları olan çocukta en olası eksiklik nedir?",
-    "secenekler": ["Demir", "B12 vitamini", "Folat", "Çinko"],
-    "dogru": "B12 vitamini"
+    "soru": "Pulmoner embolide en sık görülen semptom aşağıdakilerden hangisidir?",
+    "secenekler": ["Hemoptizi", "Ani başlayan dispne", "Bradikardi", "Alt ekstremite ödemi"],
+    "dogru": "Ani başlayan dispne"
   },
   {
     "id": 15,
-    "soru": "Prematüre bebekte surfaktan eksikliğine bağlı solunum sıkıntısı gelişiyor. En olası tanı nedir?",
-    "secenekler": ["RDS", "Pnömoni", "Mekonyum aspirasyonu", "Bronşiolit"],
-    "dogru": "RDS"
+    "soru": "Aşağıdaki antibiyotiklerden hangisi beta-laktam grubu değildir?",
+    "secenekler": ["Seftriakson", "Amoksisilin", "Meropenem", "Azitromisin"],
+    "dogru": "Azitromisin"
   }
 ]
